@@ -1,35 +1,40 @@
 import { Sort } from "./Sort";
 import { Filter } from "./Filter";
+import axios from "axios";
 import { PersonCard } from "./PersonCard";
+import styled from "styled-components";
 
 import Rick from "../assets/image2.jpg";
+import { useEffect, useState } from "react";
+
+const PersonList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+`;
 
 export const Main = () => {
+  const [person, setPerson] = useState([]);
+
+  useEffect(() => {
+    axios.get("https://rickandmortyapi.com/api/character").then((resp) => {
+      const { data } = resp;
+      setPerson(data.results);
+    });
+  }, []);
+
+  console.log(person);
   return (
-    <>
+    <main>
       <Sort />
       <Filter />
-      <section className="cards">
-        <ul className="card__list">
-          <li className="card__item">
-            <div className="card__wrapper">
-              <div className="card__img-wrapper">
-                <img
-                  className="card__img"
-                  src={Rick}
-                  width={100}
-                  height={100}
-                />
-                <span>Alive</span>
-              </div>
-              <span>Rick Sanches</span>
 
-              <span>Male</span>
-              <button className="card__btn">Details</button>
-            </div>
-          </li>
-        </ul>
+      <section className="person">
+        <PersonList>
+          {person.map((item, i) => (
+            <PersonCard key={i} {...item} />
+          ))}
+        </PersonList>
       </section>
-    </>
+    </main>
   );
 };

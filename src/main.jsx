@@ -40,12 +40,18 @@ body {
   display: grid;
   place-content: center;
   text-align: center;
-  font-size: 14px;
+  font-size: 32px;
 }
 
 ul,
 li {
   list-style: none;
+}
+
+button {
+	background-color: #42B4CA;
+	border: 1px #BFDE42 solid;
+	color: #0B1215;
 }
 `;
 
