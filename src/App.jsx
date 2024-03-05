@@ -1,4 +1,10 @@
+
 import styled, { createGlobalStyle } from "styled-components";
+
+import { Header } from "./components/Header";
+import { Main } from "./components/Main";
+
+
 
 const GlobalStyle = createGlobalStyle`
 
@@ -22,7 +28,12 @@ body {
   display: grid;
   place-content: center;
   text-align: center;
-  font-size: 50px;
+  font-size: 14px;
+}
+
+ul,
+li {
+  list-style: none;
 }
 `;
 
@@ -30,7 +41,8 @@ const App = () => {
   return (
     <div>
       <GlobalStyle />
-      elfsight-test
+      <Header /> 
+      <Main />
     </div>
   );
 };
