@@ -9,6 +9,7 @@ const PersonItem = styled.li`
   padding-top: 48px;
   padding-inline: 42px;
   padding-bottom: 30px;
+  background-color: #0c0c0c;
 `;
 
 const CardWrapper = styled.div`
@@ -17,32 +18,64 @@ const CardWrapper = styled.div`
   justify-content: center;
 `;
 
+const CardImgWrapper = styled.div`
+  position: relative;
+
+  & img {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const Status = styled.span`
+  position: absolute;
+  display: grid;
+  width: 100px;
+  height: 30px;
+  place-items: center;
+  bottom: calc(30px - 13%);
+  right: calc(100px - 38%);
+  background-color: ${(props) => props.status};
+  border-radius: 30px;
+  font-size: 18px;
+  line-height: 21px;
+
+
+`;
+
 const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-	align-items: center;
+  align-items: center;
   gap: 13px;
 `;
 
 const CardBtn = styled.button`
-	padding: 20px 20px;
-	border-radius: 5px;
-	width: 180px;
-	height: 68px;
-	font-size: 24px;
-	font-weight: 600;
-	text-transform: uppercase;
-`
+  padding: 20px 20px;
+  border-radius: 5px;
+  width: 180px;
+  height: 68px;
+  font-size: 24px;
+  font-weight: 600;
+  text-transform: uppercase;
+`;
 
-export const PersonCard = ({...data}) => {
-	const {id, name, gender, status, species, image} = {...data}
+export const PersonCard = ({ id, name, gender, status, species, image }) => {
+
+  const statusColor = {
+    Alive: '#0E5603',
+    Dead: '#D80101',
+    unknown: '#525252'
+  }
+
   return (
     <PersonItem>
       <CardWrapper>
-        <div className="card__img-wrapper">
-          <img className="card__img" src={image} width={300} height={300} />
-          {/* <span>Alive</span> */}
-        </div>
+        <CardImgWrapper>
+          <img src={image} width={300} height={300} />
+          <Status status={statusColor[status]}>{status}</Status>
+        </CardImgWrapper>
         <InfoWrapper>
           <span>{name}</span>
           <span>{gender}</span>
