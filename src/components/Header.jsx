@@ -3,8 +3,10 @@ import logo from "../assets/logo.jpg";
 import styled from "styled-components";
 
 const StyledHeader = styled.header`
-  background-color: #011314;
+  /* background-color: #011314; */
+  background-color: #123354;
   padding: 27px 120px;
+  width: 100%;
 
   & > div {
     display: flex;

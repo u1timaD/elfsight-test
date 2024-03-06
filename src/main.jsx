@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #011516;
+  
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -23,7 +23,6 @@ const GlobalStyle = createGlobalStyle`
 
 	max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
@@ -41,6 +40,7 @@ body {
   place-content: center;
   text-align: center;
   font-size: 32px;
+  background-color: #011516;
 }
 
 ul,
@@ -53,6 +53,12 @@ button {
 	border: 1px #BFDE42 solid;
 	color: #0B1215;
 }
+
+input {
+  outline: none;
+}
+
+
 `;
 
 ReactDOM.createRoot(document.getElementById("root")).render(

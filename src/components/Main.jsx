@@ -3,8 +3,6 @@ import { Filter } from "./Filter";
 import axios from "axios";
 import { PersonCard } from "./PersonCard";
 import styled from "styled-components";
-
-import Rick from "../assets/image2.jpg";
 import { useEffect, useState } from "react";
 
 const PersonList = styled.ul`
@@ -13,11 +11,22 @@ const PersonList = styled.ul`
   gap: 10px;
 `;
 
+const ManipulateSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+
+  & h2 {
+    color: #42b4ca;
+    font-size: 24px;
+  }
+`;
+
 export const Main = () => {
   const [person, setPerson] = useState([]);
 
   useEffect(() => {
-    axios.get("https://rickandmortyapi.com/api/character").then((resp) => {
+    axios.get("https://rickandmortyapi.com/api/character?page=20").then((resp) => {
       const { data } = resp;
       setPerson(data.results);
     });
@@ -26,8 +35,10 @@ export const Main = () => {
   console.log(person);
   return (
     <main>
-      <Sort />
-      <Filter />
+      <ManipulateSection>
+        <Sort />
+        <Filter />
+      </ManipulateSection>
 
       <section className="person">
         <PersonList>

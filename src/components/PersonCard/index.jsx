@@ -3,7 +3,7 @@ import styled from "styled-components";
 const PersonItem = styled.li`
   display: flex;
   width: 385px;
-  height: 575px;
+  /* height: 575px; */
   border: 1px solid rgba(66, 180, 202, 0.5);
   border-radius: 20px;
   padding-top: 48px;
@@ -15,11 +15,15 @@ const PersonItem = styled.li`
 const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const CardImgWrapper = styled.div`
   position: relative;
+  width: 300px;
+  height: 300px;
+  margin-bottom: 25px;
 
   & img {
     border-radius: 10px;
@@ -40,15 +44,13 @@ const Status = styled.span`
   border-radius: 30px;
   font-size: 18px;
   line-height: 21px;
-
-
 `;
 
 const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 13px;
+  justify-content: space-between;
 `;
 
 const CardBtn = styled.button`
@@ -59,15 +61,22 @@ const CardBtn = styled.button`
   font-size: 24px;
   font-weight: 600;
   text-transform: uppercase;
+  cursor: pointer;
+`;
+
+const Name = styled.span``;
+
+const Gender = styled.span`
+  font-size: 28px;
+  margin-bottom: auto;
 `;
 
 export const PersonCard = ({ id, name, gender, status, species, image }) => {
-
   const statusColor = {
-    Alive: '#0E5603',
-    Dead: '#D80101',
-    unknown: '#525252'
-  }
+    Alive: "#0E5603",
+    Dead: "#D80101",
+    unknown: "#525252",
+  };
 
   return (
     <PersonItem>
@@ -77,10 +86,10 @@ export const PersonCard = ({ id, name, gender, status, species, image }) => {
           <Status status={statusColor[status]}>{status}</Status>
         </CardImgWrapper>
         <InfoWrapper>
-          <span>{name}</span>
-          <span>{gender}</span>
-          <CardBtn>Details</CardBtn>
+          <Name>{name}</Name>
+          <Gender>{gender}</Gender>
         </InfoWrapper>
+        <CardBtn>Details</CardBtn>
       </CardWrapper>
     </PersonItem>
   );
