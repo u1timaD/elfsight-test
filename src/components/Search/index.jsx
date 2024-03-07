@@ -1,40 +1,40 @@
 import styled from "styled-components";
 
+const StyledSearch = styled.div`
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    input {
+      border-color: #bfde42;
+    }
+    svg path {
+      fill: #bfde42;
+    }
+  }
+
+  & input {
+    height: 40px;
+    width: 300px;
+    border: 1px #42b4ca solid;
+    border-radius: 40px;
+    background-color: transparent;
+    padding: 10px;
+    padding-inline: 22px;
+    font-size: 18px;
+    color: #fff;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  & svg {
+    margin-left: 20px;
+  }
+`;
+
 export const Search = () => {
-  const StyledSearch = styled.div`
-    display: flex;
-    align-items: center;
-
-    &:hover {
-      input {
-        border-color: #bfde42;
-      }
-      svg path {
-        fill: #bfde42;
-      }
-    }
-
-    & input {
-      height: 40px;
-      width: 300px;
-      border: 1px #42b4ca solid;
-      border-radius: 40px;
-      background-color: transparent;
-      padding: 10px;
-      padding-inline: 22px;
-      font-size: 18px;
-      color: #fff;
-
-      &::placeholder {
-        color: rgba(255, 255, 255, 0.2);
-      }
-    }
-
-    & svg {
-      margin-left: 20px;
-    }
-  `;
-
   return (
     <>
       <StyledSearch>

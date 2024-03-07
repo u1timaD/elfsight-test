@@ -83,7 +83,7 @@ export const PersonCard = ({ id, name, gender, status, species, image }) => {
       <CardWrapper>
         <CardImgWrapper>
           <img src={image} width={300} height={300} />
-          <Status status={statusColor[status]}>{status}</Status>
+          {/* <Status status={statusColor[status]}>{status}</Status> */}
         </CardImgWrapper>
         <InfoWrapper>
           <Name>{name}</Name>

@@ -14,10 +14,9 @@ const StyledItem = styled.li`
   display: flex;
   flex-direction: column;
   align-items: start;
-  
 `;
 
-const StyledFieldset = styled.li`
+const StyledFieldset = styled.fieldset`
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -55,9 +54,7 @@ const StyledFieldset = styled.li`
   }
 `;
 
-export const Filter = () => {
-
-
+export const Filter = ({ status, typePerson }) => {
   return (
     <StyledFilter>
       <h2>Filter by:</h2>
@@ -65,45 +62,19 @@ export const Filter = () => {
         <StyledItem>
           <span>Status:</span>
           <StyledFieldset className="radio-set">
-            <RadioBtn />
-            {/* <label>
-              <input type="radio" name="status" />
-              <span></span>
-              <span>Alive</span>
-            </label> */}
-            {/* <label>
-              <input type="radio" name="status" />
-              <span></span>
-              <span>Dead</span>
-            </label>
-            <label>
-              <input type="radio" name="status" />
-              <span></span>
-              <span>Unknown</span>
-            </label> */}
+            {status.map((item, i) => (
+              <RadioBtn key={i} item={item} />
+            ))}
           </StyledFieldset>
         </StyledItem>
-        {/* <li>
-          <span>Gender:</span>
-          <fieldset className="radio-set">
-            <label>
-              <input type="radio" name="gender" />
-              <span>Male</span>
-            </label>
-            <label>
-              <input type="radio" name="gender" />
-              <span>Female</span>
-            </label>
-            <label>
-              <input type="radio" name="gender" />
-              <span>Genderless</span>
-            </label>
-            <label>
-              <input type="radio" name="gender" />
-              <span>Unknown</span>
-            </label>
-          </fieldset>
-        </li> */}
+        <StyledItem>
+          <span>Type:</span>
+          <StyledFieldset className="radio-set">
+            {typePerson.map((item, i) => (
+              <RadioBtn key={i} item={item} />
+            ))}
+          </StyledFieldset>
+        </StyledItem>
       </StyledList>
     </StyledFilter>
   );

@@ -4,6 +4,7 @@ import axios from "axios";
 import { PersonCard } from "./PersonCard";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 const PersonList = styled.ul`
   display: flex;
@@ -26,18 +27,25 @@ export const Main = () => {
   const [person, setPerson] = useState([]);
 
   useEffect(() => {
-    axios.get("https://rickandmortyapi.com/api/character?page=20").then((resp) => {
-      const { data } = resp;
-      setPerson(data.results);
-    });
+    axios
+      .get("https://rickandmortyapi.com/api/character?page=20")
+      .then((resp) => {
+        const { data } = resp;
+        setPerson(data.results);
+      });
   }, []);
 
-  console.log(person);
+  const findFilters = (data, item) => [...new Set(data.map(i => i[item]))]
+
+  const status = findFilters(person, "status");
+
+  const typePerson = findFilters(person, "type");
+
   return (
     <main>
       <ManipulateSection>
         <Sort />
-        <Filter />
+        <Filter status={status} typePerson={typePerson}/>
       </ManipulateSection>
 
       <section className="person">
