@@ -1,11 +1,11 @@
-export const RadioBtn = ({item}) => {
-  
+import { useSelector } from "react-redux";
 
+export const RadioBtn = ({ filterName, index, inputName }) => {
   return (
     <label>
-      <input type="radio" name="status" />
+      <input type="radio" name={inputName} />
       <span></span>
-      <span>{item}</span>
+      <span>{filterName}</span>
     </label>
   );
 };

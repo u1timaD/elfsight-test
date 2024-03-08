@@ -5,6 +5,8 @@ import { PersonCard } from "./PersonCard";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { setPersons, findFilters } from "../redux/filterSlice";
+
 
 const PersonList = styled.ul`
   display: flex;
@@ -24,28 +26,30 @@ const ManipulateSection = styled.section`
 `;
 
 export const Main = () => {
-  const [person, setPerson] = useState([]);
+  const [person1, setPerson1] = useState([]);
+
+  const dispatch = useDispatch();
+  const person = useSelector((state) => state.filter.persons)
+
+
 
   useEffect(() => {
     axios
-      .get("https://rickandmortyapi.com/api/character?page=20")
+      .get("https://rickandmortyapi.com/api/character/?page=9")
       .then((resp) => {
         const { data } = resp;
-        setPerson(data.results);
+        // setPerson(data.results);
+        dispatch(setPersons(data.results));
+        dispatch(findFilters());
       });
   }, []);
-
-  const findFilters = (data, item) => [...new Set(data.map(i => i[item]))]
-
-  const status = findFilters(person, "status");
-
-  const typePerson = findFilters(person, "type");
 
   return (
     <main>
       <ManipulateSection>
         <Sort />
-        <Filter status={status} typePerson={typePerson}/>
+        {/* <Filter /> */}
+        <Filter />
       </ManipulateSection>
 
       <section className="person">
