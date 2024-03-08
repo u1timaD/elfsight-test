@@ -64,7 +64,7 @@ export const Filter = () => {
   // const personsData = useSelector((state) => state.filter.persons);
   const filtersList = useSelector((state) => state.filter.filtersList);
 
-  console.log(filtersList);
+  // console.log(filtersList);
 
   return (
     <StyledFilter>

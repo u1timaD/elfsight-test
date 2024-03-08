@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setPersons, findFilters } from "../redux/filterSlice";
-
+import { fetchPersons } from "../redux/personSlice";
 
 const PersonList = styled.ul`
   display: flex;
@@ -26,23 +26,25 @@ const ManipulateSection = styled.section`
 `;
 
 export const Main = () => {
-  const [person1, setPerson1] = useState([]);
-
   const dispatch = useDispatch();
-  const person = useSelector((state) => state.filter.persons)
-
-
+  const person = useSelector((state) => state.filter.persons);
+  const perData = useSelector((state) => state.person.persons);
+  const statusFetch = useSelector((state) => state.person.statusFetch);
 
   useEffect(() => {
-    axios
-      .get("https://rickandmortyapi.com/api/character/?page=9")
-      .then((resp) => {
-        const { data } = resp;
-        // setPerson(data.results);
-        dispatch(setPersons(data.results));
-        dispatch(findFilters());
-      });
+    (async () => {
+      dispatch(fetchPersons());
+    })();
+    
   }, []);
+
+  useEffect(() => {
+    if(statusFetch === 'success') {
+      dispatch(setPersons(...perData));
+      dispatch(findFilters());
+    }
+  },[statusFetch])
+  
 
   return (
     <main>
