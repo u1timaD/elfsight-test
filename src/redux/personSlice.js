@@ -3,9 +3,11 @@ import axios from "axios";
 
 export const fetchPersons = createAsyncThunk(
 	'person/fetchPersonsStatus',
-	async () => {
-		const { data } = await axios.get("https://rickandmortyapi.com/api/character/?page=9");
-		// const data = await response;
+	async ({ filterStatus, filterGender }) => {
+		const { data } = await axios.get(`https://rickandmortyapi.com/api/character/?page=1${filterStatus}${filterGender}`);
+
+
+		// return data; // ?на загрузку всех сразу
 		return data.results;
 	}
 )
@@ -14,6 +16,7 @@ export const fetchPersons = createAsyncThunk(
 
 export const personSlice = createSlice({
 	name: 'person',
+	isLoading: false,
 	initialState: {
 		persons: [],
 		statusFetch: 'loading' // loading | success | error 
@@ -21,6 +24,9 @@ export const personSlice = createSlice({
 	reducers: {
 		setPersons: (state, actions) => {
 			state.persons = actions.payload;
+		},
+		setIsLoading: (state) => {
+			state.isLoading = !state.isLoading;
 		}
 	}, 
 	extraReducers: (builder) => {
@@ -40,5 +46,5 @@ export const personSlice = createSlice({
 })
 
 
-export const { setPersons } = personSlice.actions;
+export const { setPersons, setIsLoading } = personSlice.actions;
 export default personSlice.reducer;

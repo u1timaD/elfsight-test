@@ -69,38 +69,9 @@ export const Filter = () => {
   return (
     <StyledFilter>
       <h2>Filter by:</h2>
-      {filtersList.map((filterItem, key) => 
-        <List key={key} filterItem={filterItem} index={key}/>
-      )}
-
-      {/* <StyledList> */}
-
-      {/* <StyledItem>
-          <span>Status:</span>
-          <StyledFieldset className="radio-set">
-            {filterStatus.map((item, i) => (
-              <RadioBtn key={i} item={item} />
-            ))}
-          </StyledFieldset>
-        </StyledItem> */}
-
-      {/* <StyledItem>
-          <span>Status:</span>
-          <StyledFieldset className="radio-set">
-            {status.map((item, i) => (
-              <RadioBtn key={i} item={item} />
-            ))}
-          </StyledFieldset>
-        </StyledItem>
-        <StyledItem>
-          <span>Type:</span>
-          <StyledFieldset className="radio-set">
-            {typePerson.map((item, i) => (
-              <RadioBtn key={i} item={item} />
-            ))}
-          </StyledFieldset>
-        </StyledItem> */}
-      {/* </StyledList> */}
+      {filtersList.map((filterItem, key) => (
+        <List key={key} filterItem={filterItem} index={key} />
+      ))}
     </StyledFilter>
   );
 };

@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setPersons, findFilters } from "../redux/filterSlice";
-import { fetchPersons } from "../redux/personSlice";
+import { fetchPersons, setIsLoading } from "../redux/personSlice";
 
 const PersonList = styled.ul`
   display: flex;
@@ -27,23 +27,58 @@ const ManipulateSection = styled.section`
 
 export const Main = () => {
   const dispatch = useDispatch();
-  const person = useSelector((state) => state.filter.persons);
-  const perData = useSelector((state) => state.person.persons);
-  const statusFetch = useSelector((state) => state.person.statusFetch);
 
+  const personData = useSelector((state) => state.person.persons);
+  const statusFetch = useSelector((state) => state.person.statusFetch);
+  const isLoading = useSelector((state) => state.person.isLoading);
+
+  const status = ''
+  const gender = ''
   useEffect(() => {
     (async () => {
-      dispatch(fetchPersons());
+      dispatch(fetchPersons({ status, gender }));
     })();
     
   }, []);
 
   useEffect(() => {
-    if(statusFetch === 'success') {
-      dispatch(setPersons(...perData));
+    if(statusFetch === 'success' && !isLoading) {
+      dispatch(setPersons(...personData));
       dispatch(findFilters());
+      dispatch(setIsLoading())
     }
   },[statusFetch])
+
+
+  // ? делаем ряд запросов, чтобы загрузить все карточки сразу 
+  // useEffect(() => {
+  //   const getAllCharacters = async () => {
+  //     let allCharacters = [];
+  //     let page = 1;
+  //     let response;
+  
+  //     do {
+  //       response = await axios.get(`https://rickandmortyapi.com/api/character/?page=${page}`);
+  //       const characters = response.data.results;
+  //       allCharacters = [...allCharacters, ...characters]; 
+  //       page++;
+  //     } while (response.data.info.next !== null);
+  
+  //     return allCharacters;
+  //   };
+  
+  //   const fetchData = async () => {
+  //     try {
+  //       const allCharacters = await getAllCharacters();
+  //       dispatch(setPersons(allCharacters))
+  //       dispatch(findFilters())
+  //     } catch (error) {
+  //       console.error("Ошибка при получении данных:", error);
+  //     }
+  //   };
+  
+  //   fetchData();
+  // }, []);
   
 
   return (
@@ -56,7 +91,7 @@ export const Main = () => {
 
       <section className="person">
         <PersonList>
-          {person.map((item, i) => (
+          {statusFetch === 'success' && personData[0].map((item, i) => (
             <PersonCard key={i} {...item} />
           ))}
         </PersonList>
