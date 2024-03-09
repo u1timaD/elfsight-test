@@ -32,14 +32,18 @@ export const Main = () => {
   const statusFetch = useSelector((state) => state.person.statusFetch);
   const isLoading = useSelector((state) => state.person.isLoading);
 
-  const status = ''
-  const gender = ''
+  const filterGender = useSelector((state) => state.filter.filterGender);
+  const filterStatus = useSelector((state) => state.filter.filterStatus);
+  const filterType = useSelector((state) => state.filter.filterType);
+  const filterSpecies = useSelector((state) => state.filter.filterSpecies);
+
+  
   useEffect(() => {
     (async () => {
-      dispatch(fetchPersons({ status, gender }));
+      dispatch(fetchPersons({ filterGender, filterStatus, filterType, filterSpecies}));
     })();
     
-  }, []);
+  }, [filterGender, filterStatus, filterType, filterSpecies]);
 
   useEffect(() => {
     if(statusFetch === 'success' && !isLoading) {

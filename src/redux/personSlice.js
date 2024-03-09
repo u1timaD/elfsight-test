@@ -3,8 +3,8 @@ import axios from "axios";
 
 export const fetchPersons = createAsyncThunk(
 	'person/fetchPersonsStatus',
-	async ({ filterStatus, filterGender }) => {
-		const { data } = await axios.get(`https://rickandmortyapi.com/api/character/?page=1${filterStatus}${filterGender}`);
+	async ({ filterGender, filterStatus, filterType, filterSpecies }) => {
+		const { data } = await axios.get(`https://rickandmortyapi.com/api/character/?page=1${filterStatus}${filterGender}${filterType}${filterSpecies}`);
 
 
 		// return data; // ?на загрузку всех сразу
