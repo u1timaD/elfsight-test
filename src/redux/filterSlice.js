@@ -5,13 +5,13 @@ export const filterSlice = createSlice({
   initialState: {
     status: "",
     persons: [],
+    reset: false,
     filtersName: ["gender", "status", "type", "species"],
     filtersList: [],
     filterGender: "",
     filterStatus: "",
     filterType: "",
     filterSpecies: "",
-
   },
   reducers: {
     setStatus: (state, action) => {
@@ -24,19 +24,31 @@ export const filterSlice = createSlice({
     // ?Отрефакторить всё, для компакности
     setFilterGender: (state, action) => {
       state.filterGender = action.payload;
+      state.reset = false;
     },
     setFilterStatus: (state, action) => {
       state.filterStatus = action.payload;
+      state.reset = false;
     },
     setFilterType: (state, action) => {
       state.filterType = action.payload;
+      state.reset = false;
     },
     setFilterSpecies: (state, action) => {
       state.filterSpecies = action.payload;
+      state.reset = false;
+    },
+    resetFilters: (state) => {
+      state.filterGender = "",
+      state.filterStatus = "",
+      state.filterType = "",
+      state.filterSpecies = "",
+      state.reset = true;
     },
 
-
-
+    setResetFilters: (state, action) => {
+      state.reset = action.payload;
+    },
 
     findFilters: (state) => {
       // +Прохожусь по массиву имен фильтров и на его основе выбираю из всего объекта нужные фильтры. Получается массив с массивами, также отсортированный
@@ -55,6 +67,8 @@ export const {
   setFilterGender,
   setFilterStatus,
   setFilterType,
-  setFilterSpecies
-  } = filterSlice.actions;
+  setFilterSpecies,
+  resetFilters,
+  setResetFilters
+} = filterSlice.actions;
 export default filterSlice.reducer;

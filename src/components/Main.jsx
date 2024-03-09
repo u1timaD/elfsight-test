@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setPersons, findFilters } from "../redux/filterSlice";
 import { fetchPersons, setIsLoading } from "../redux/personSlice";
+import { NotFound } from "./NoFound";
+import { ResetBtn } from "./ResetBtn";
 
 const PersonList = styled.ul`
   display: flex;
@@ -37,40 +39,39 @@ export const Main = () => {
   const filterType = useSelector((state) => state.filter.filterType);
   const filterSpecies = useSelector((state) => state.filter.filterSpecies);
 
-  
   useEffect(() => {
     (async () => {
-      dispatch(fetchPersons({ filterGender, filterStatus, filterType, filterSpecies}));
+      dispatch(
+        fetchPersons({ filterGender, filterStatus, filterType, filterSpecies })
+      );
     })();
-    
   }, [filterGender, filterStatus, filterType, filterSpecies]);
 
   useEffect(() => {
-    if(statusFetch === 'success' && !isLoading) {
+    if (statusFetch === "success" && !isLoading) {
       dispatch(setPersons(...personData));
       dispatch(findFilters());
-      dispatch(setIsLoading())
+      dispatch(setIsLoading());
     }
-  },[statusFetch])
+  }, [statusFetch]);
 
-
-  // ? делаем ряд запросов, чтобы загрузить все карточки сразу 
+  // ? делаем ряд запросов, чтобы загрузить все карточки сразу
   // useEffect(() => {
   //   const getAllCharacters = async () => {
   //     let allCharacters = [];
   //     let page = 1;
   //     let response;
-  
+
   //     do {
   //       response = await axios.get(`https://rickandmortyapi.com/api/character/?page=${page}`);
   //       const characters = response.data.results;
-  //       allCharacters = [...allCharacters, ...characters]; 
+  //       allCharacters = [...allCharacters, ...characters];
   //       page++;
   //     } while (response.data.info.next !== null);
-  
+
   //     return allCharacters;
   //   };
-  
+
   //   const fetchData = async () => {
   //     try {
   //       const allCharacters = await getAllCharacters();
@@ -80,10 +81,9 @@ export const Main = () => {
   //       console.error("Ошибка при получении данных:", error);
   //     }
   //   };
-  
+
   //   fetchData();
   // }, []);
-  
 
   return (
     <main>
@@ -91,14 +91,18 @@ export const Main = () => {
         <Sort />
         {/* <Filter /> */}
         <Filter />
+        <ResetBtn />
       </ManipulateSection>
 
       <section className="person">
-        <PersonList>
-          {statusFetch === 'success' && personData[0].map((item, i) => (
-            <PersonCard key={i} {...item} />
-          ))}
-        </PersonList>
+        {statusFetch === "error" ? (
+          <NotFound />
+        ) : (
+          <PersonList>
+            {statusFetch === "success" &&
+              personData[0].map((item, i) => <PersonCard key={i} {...item} />)}
+          </PersonList>
+        )}
       </section>
     </main>
   );
