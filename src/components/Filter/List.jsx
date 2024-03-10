@@ -1,13 +1,6 @@
 import styled from "styled-components";
 import { RadioBtn } from "./RadioBtn";
-import { useDispatch, useSelector } from "react-redux";
-import { findFilters } from "../../redux/filterSlice";
-import { useEffect } from "react";
-import { List } from "./List";
-
-const StyledFilter = styled.div`
-  display: flex;
-`;
+import { useSelector } from "react-redux";
 
 const StyledList = styled.ul`
   display: flex;
@@ -58,20 +51,25 @@ const StyledFieldset = styled.fieldset`
   }
 `;
 
-export const Filter = () => {
-  const dispatch = useDispatch();
+export const List = ({ filterItem, index }) => {
+  const filtersNameRtk = useSelector((state) => state.filter.filtersName);
 
-  // const personsData = useSelector((state) => state.filter.persons);
-  const filtersList = useSelector((state) => state.filter.filtersList);
-
-  // console.log(filtersList);
+  const inputName = filtersNameRtk[index];
 
   return (
-    <StyledFilter>
-      <h2>Filter by:</h2>
-      {filtersList.map((filterItem, key) => (
-        <List key={key} filterItem={filterItem} index={key} />
-      ))}
-    </StyledFilter>
+    <StyledList>
+      <StyledItem>
+        <span>{inputName}</span>
+        <StyledFieldset className="radio-set">
+          {filterItem.map((filterName, index) => (
+            <RadioBtn
+              key={index}
+              filterName={filterName}
+              inputName={inputName}
+            />
+          ))}
+        </StyledFieldset>
+      </StyledItem>
+    </StyledList>
   );
 };
