@@ -30,19 +30,19 @@ export const RadioBtn = ({ filterName, index, inputName }) => {
     const inputName = inputRef.current.name;
 
     if (inputName === "status") {
-      dispatch(setFilterStatus(`&status=${inputValue}`));
+      dispatch(setFilterStatus(inputValue));
     }
 
     if (inputName === "gender") {
-      dispatch(setFilterGender(`&gender=${inputValue}`));
+      dispatch(setFilterGender(inputValue));
     }
 
     if (inputName === "type") {
-      dispatch(setFilterType(`&type=${inputValue}`));
+      dispatch(setFilterType(inputValue));
     }
 
     if (inputName === "species") {
-      dispatch(setFilterType(`&species=${inputValue}`));
+      dispatch(setFilterType(inputValue));
     }
   };
 

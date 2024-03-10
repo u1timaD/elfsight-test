@@ -5,7 +5,7 @@ import { PersonCard } from "./PersonCard";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setPersons, findFilters } from "../redux/filterSlice";
+import { setFilterPersons, findFilters } from "../redux/filterSlice";
 import { fetchPersons, setIsLoading } from "../redux/personSlice";
 import { NotFound } from "./NoFound";
 import { ResetBtn } from "./ResetBtn";
@@ -38,22 +38,29 @@ export const Main = () => {
   const filterStatus = useSelector((state) => state.filter.filterStatus);
   const filterType = useSelector((state) => state.filter.filterType);
   const filterSpecies = useSelector((state) => state.filter.filterSpecies);
+  const filterName = useSelector((state) => state.filter.filterName);
 
+  const pagesData = useSelector((state) => state.person.pages);
+
+  
   useEffect(() => {
     (async () => {
       dispatch(
-        fetchPersons({ filterGender, filterStatus, filterType, filterSpecies })
+        fetchPersons({ filterGender, filterStatus, filterType, filterSpecies, filterName})
       );
     })();
-  }, [filterGender, filterStatus, filterType, filterSpecies]);
+  }, [filterGender, filterStatus, filterType, filterSpecies, filterName]);
 
   useEffect(() => {
     if (statusFetch === "success" && !isLoading) {
-      dispatch(setPersons(...personData));
+      dispatch(setFilterPersons(personData));
       dispatch(findFilters());
       dispatch(setIsLoading());
+      
     }
   }, [statusFetch]);
+
+
 
   // ? делаем ряд запросов, чтобы загрузить все карточки сразу
   // useEffect(() => {
@@ -89,7 +96,6 @@ export const Main = () => {
     <main>
       <ManipulateSection>
         <Sort />
-        {/* <Filter /> */}
         <Filter />
         <ResetBtn />
       </ManipulateSection>
@@ -100,7 +106,7 @@ export const Main = () => {
         ) : (
           <PersonList>
             {statusFetch === "success" &&
-              personData[0].map((item, i) => <PersonCard key={i} {...item} />)}
+              personData.map((item, i) => <PersonCard key={i} {...item} />)}
           </PersonList>
         )}
       </section>

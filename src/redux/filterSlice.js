@@ -5,44 +5,53 @@ export const filterSlice = createSlice({
   initialState: {
     status: "",
     persons: [],
-    reset: false,
+    reset: true,
     filtersName: ["gender", "status", "type", "species"],
     filtersList: [],
     filterGender: "",
     filterStatus: "",
     filterType: "",
     filterSpecies: "",
+    filterName: ""
   },
   reducers: {
     setStatus: (state, action) => {
       state.value = action.payload;
     },
-    setPersons: (state, action) => {
+    setFilterPersons: (state, action) => {
       state.persons = action.payload;
     },
 
     // ?Отрефакторить всё, для компакности
     setFilterGender: (state, action) => {
-      state.filterGender = action.payload;
+      state.filterGender = `&gender=${action.payload}`;
       state.reset = false;
     },
     setFilterStatus: (state, action) => {
-      state.filterStatus = action.payload;
+      state.filterStatus = `&status=${action.payload}`;
       state.reset = false;
     },
     setFilterType: (state, action) => {
-      state.filterType = action.payload;
+      state.filterType = `&type=${action.payload}`;
       state.reset = false;
     },
     setFilterSpecies: (state, action) => {
-      state.filterSpecies = action.payload;
+      state.filterSpecies = `&species=${action.payload}`;
       state.reset = false;
+    },
+    setFilterName: (state, action) => {
+      state.filterName = `&name=${action.payload}`;
+      state.reset = false;
+    },
+    setCleanFilterName: (state) => {
+      state.filterName = '';
     },
     resetFilters: (state) => {
       state.filterGender = "",
       state.filterStatus = "",
       state.filterType = "",
       state.filterSpecies = "",
+      state.filterName = "",
       state.reset = true;
     },
 
@@ -62,12 +71,14 @@ export const filterSlice = createSlice({
 
 export const {
   setStatus,
-  setPersons,
+  setFilterPersons,
   findFilters,
   setFilterGender,
   setFilterStatus,
   setFilterType,
   setFilterSpecies,
+  setFilterName,
+  setCleanFilterName,
   resetFilters,
   setResetFilters
 } = filterSlice.actions;

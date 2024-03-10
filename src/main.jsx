@@ -38,7 +38,7 @@ const GlobalStyle = createGlobalStyle`
 body {
   min-height: 100vh;
   display: grid;
-  place-content: center;
+  /* place-content: center; */
   text-align: center;
   font-size: 32px;
   background-color: #011516;

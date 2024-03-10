@@ -3,12 +3,12 @@ import axios from "axios";
 
 export const fetchPersons = createAsyncThunk(
 	'person/fetchPersonsStatus',
-	async ({ filterGender, filterStatus, filterType, filterSpecies }) => {
-		const { data } = await axios.get(`https://rickandmortyapi.com/api/character/?page=1${filterStatus}${filterGender}${filterType}${filterSpecies}`);
+	async ({ filterGender, filterStatus, filterType, filterSpecies, filterName }) => {
+		const { data } = await axios.get(`https://rickandmortyapi.com/api/character/?page=1${filterName}${filterStatus}${filterGender}${filterType}${filterSpecies}`);
 
 
 		// return data; // ?на загрузку всех сразу
-		return data.results;
+		return data;
 	}
 )
 
@@ -19,6 +19,7 @@ export const personSlice = createSlice({
 	isLoading: false,
 	initialState: {
 		persons: [],
+		pages: '',		
 		statusFetch: 'loading' // loading | success | error 
 	},
 	reducers: {
@@ -35,7 +36,8 @@ export const personSlice = createSlice({
 			state.persons = [];
 		})
 		.addCase(fetchPersons.fulfilled, (state, action) => {
-			state.persons.push(action.payload);
+			state.persons = action.payload.results;
+			state.pages = action.payload.info.pages;
 			state.statusFetch = 'success'; 
 		})
 		.addCase(fetchPersons.rejected, (state) => {
