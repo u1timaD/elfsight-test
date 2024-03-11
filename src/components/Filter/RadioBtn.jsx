@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPersons } from "../../redux/personSlice";
+import { fetchPersons, setCurrentPage } from "../../redux/personSlice";
 import {
   setFilterGender,
   setFilterStatus,
@@ -28,9 +28,10 @@ export const RadioBtn = ({ filterName, index, inputName }) => {
   const handleClickInput = () => {
     const inputValue = inputRef.current.value.toLowerCase();
     const inputName = inputRef.current.name;
-
+    dispatch(setCurrentPage(1));
     if (inputName === "status") {
       dispatch(setFilterStatus(inputValue));
+      
     }
 
     if (inputName === "gender") {

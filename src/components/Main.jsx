@@ -6,9 +6,11 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setFilterPersons, findFilters } from "../redux/filterSlice";
-import { fetchPersons, setIsLoading } from "../redux/personSlice";
+import { fetchPersons, setCurrentPage, setIsLoading } from "../redux/personSlice";
 import { NotFound } from "./NoFound";
 import { ResetBtn } from "./ResetBtn";
+import { Pagination } from "./Pagination/Pagination";
+
 
 const PersonList = styled.ul`
   display: flex;
@@ -27,6 +29,10 @@ const ManipulateSection = styled.section`
   }
 `;
 
+const ParinationStyled = styled.div`
+  display: flex;
+`
+
 export const Main = () => {
   const dispatch = useDispatch();
 
@@ -40,16 +46,21 @@ export const Main = () => {
   const filterSpecies = useSelector((state) => state.filter.filterSpecies);
   const filterName = useSelector((state) => state.filter.filterName);
 
+  const currentPage = useSelector((state) => state.person.currentPage);
+
   const pagesData = useSelector((state) => state.person.pages);
 
-  
+
   useEffect(() => {
     (async () => {
+      
       dispatch(
-        fetchPersons({ filterGender, filterStatus, filterType, filterSpecies, filterName})
+        fetchPersons({ filterGender, filterStatus, filterType, filterSpecies, filterName, currentPage})
       );
     })();
-  }, [filterGender, filterStatus, filterType, filterSpecies, filterName]);
+  }, [filterGender, filterStatus, filterType, filterSpecies, filterName, currentPage]);
+
+
 
   useEffect(() => {
     if (statusFetch === "success" && !isLoading) {
@@ -82,7 +93,7 @@ export const Main = () => {
   //   const fetchData = async () => {
   //     try {
   //       const allCharacters = await getAllCharacters();
-  //       dispatch(setPersons(allCharacters))
+  //       dispatch(setFilterPersons(allCharacters))
   //       dispatch(findFilters())
   //     } catch (error) {
   //       console.error("Ошибка при получении данных:", error);
@@ -94,10 +105,15 @@ export const Main = () => {
 
   return (
     <main>
+      <ParinationStyled>
+          <Pagination />
+        </ParinationStyled>
       <ManipulateSection>
         <Sort />
         <Filter />
         <ResetBtn />
+        
+        
       </ManipulateSection>
 
       <section className="person">
@@ -110,6 +126,7 @@ export const Main = () => {
           </PersonList>
         )}
       </section>
+      
     </main>
   );
 };
