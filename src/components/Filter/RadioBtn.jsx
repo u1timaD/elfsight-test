@@ -8,6 +8,43 @@ import {
   setFilterSpecies,
   setResetFilters,
 } from "../../redux/filterSlice";
+import styled from "styled-components";
+
+const RadioLabel = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const RadioInput = styled.input`
+  display: none;
+
+  & + span {
+    position: relative;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+
+  &:checked + span::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: #021415;
+    border-radius: 50%;
+  }
+`
+
+const RadioName = styled.span`
+font-size: 18px;
+
+`
 
 export const RadioBtn = ({ filterName, index, inputName }) => {
   const inputRef = useRef();
@@ -48,8 +85,8 @@ export const RadioBtn = ({ filterName, index, inputName }) => {
   };
 
   return (
-    <label>
-      <input
+    <RadioLabel>
+      <RadioInput
         ref={inputRef}
         onClick={handleClickInput}
         type="radio"
@@ -57,7 +94,7 @@ export const RadioBtn = ({ filterName, index, inputName }) => {
         value={filterName}
       />
       <span></span>
-      <span>{filterName}</span>
-    </label>
+      <RadioName>{filterName}</RadioName>
+    </RadioLabel>
   );
 };

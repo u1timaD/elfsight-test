@@ -21,9 +21,7 @@ const MainStyled = styled.main`
   align-items: center;
 `;
 
-const PersonSection = styled.section`
-
-`;
+const PersonSection = styled.section``;
 
 const PersonList = styled.ul`
   display: flex;
@@ -37,6 +35,10 @@ const ManipulateSection = styled.section`
   display: flex;
   flex-direction: column;
   font-size: 24px;
+
+  & > div {
+    padding-inline: 30px;
+  }
 
   & h2 {
     color: #42b4ca;
@@ -70,6 +72,10 @@ const Shadow = styled.div`
   z-index: 3;
 `;
 
+const CardContainerStyled = styled.div`
+  padding-inline: 40px;
+`
+
 export const Main = () => {
   const dispatch = useDispatch();
 
@@ -82,6 +88,9 @@ export const Main = () => {
   const filterType = useSelector((state) => state.filter.filterType);
   const filterSpecies = useSelector((state) => state.filter.filterSpecies);
   const filterName = useSelector((state) => state.filter.filterName);
+
+
+  const filtersList = useSelector((state) => state.filter.filtersList);
 
   const currentPage = useSelector((state) => state.person.currentPage);
 
@@ -109,44 +118,48 @@ export const Main = () => {
     currentPage,
   ]);
 
-  useEffect(() => {
-    if (statusFetch === "success" && !isLoading) {
-      dispatch(setFilterPersons(personData));
-      dispatch(findFilters());
-      dispatch(setIsLoading());
-    }
-  }, [statusFetch]);
+  // useEffect(() => {
+  //   if (statusFetch === "success" && !isLoading) {
+  //     dispatch(setFilterPersons(personData));
+  //     dispatch(findFilters());
+  //     dispatch(setIsLoading());
+  //   }
+  // }, [statusFetch]);
 
   // ? делаем ряд запросов, чтобы загрузить все карточки сразу
-  // useEffect(() => {
-  //   const getAllCharacters = async () => {
-  //     let allCharacters = [];
-  //     let page = 1;
-  //     let response;
+  useEffect(() => {
+    const getAllCharacters = async () => {
+      let allCharacters = [];
+      let page = 1;
+      let response;
 
-  //     do {
-  //       response = await axios.get(`https://rickandmortyapi.com/api/character/?page=${page}`);
-  //       const characters = response.data.results;
-  //       allCharacters = [...allCharacters, ...characters];
-  //       page++;
-  //     } while (response.data.info.next !== null);
+      do {
+        response = await axios.get(`https://rickandmortyapi.com/api/character/?page=${page}`);
+        const characters = response.data.results;
+        allCharacters = [...allCharacters, ...characters];
+        page++;
+      } while (response.data.info.next !== null);
 
-  //     return allCharacters;
-  //   };
+      return allCharacters;
+    };
 
-  //   const fetchData = async () => {
-  //     try {
-  //       const allCharacters = await getAllCharacters();
-  //       dispatch(setFilterPersons(allCharacters))
-  //       dispatch(findFilters())
-  //     } catch (error) {
-  //       console.error("Ошибка при получении данных:", error);
-  //     }
-  //   };
+    const fetchData = async () => {
+      try {
+        const allCharacters = await getAllCharacters();
+        dispatch(setFilterPersons(allCharacters));
+        dispatch(findFilters());
+        // dispatch(setIsLoading())
+        console.log(allCharacters)
+      } catch (error) {
+        console.error("Ошибка при получении данных:", error);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
+  console.log(filtersList)
+  
   const [popup, setPopup] = useState(false);
   const [popupParams, setPopupParams] = useState({});
 
@@ -166,11 +179,14 @@ export const Main = () => {
       {popup && <Shadow></Shadow>}
       <Pagination />
       <ManipulateSection>
-        <Filter />
-        <ResetBtn />
+        <div>
+          <Filter />
+          <ResetBtn />
+        </div>
       </ManipulateSection>
 
       <PersonSection>
+        <CardContainerStyled>
         {popup && (
           <PopupStyled>
             <Popup popupClose={popupClose} popupParams={popupParams} />
@@ -190,6 +206,7 @@ export const Main = () => {
               ))}
           </PersonList>
         )}
+        </CardContainerStyled>
       </PersonSection>
     </MainStyled>
   );

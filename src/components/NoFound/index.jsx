@@ -11,7 +11,7 @@ const NotFoundStyled = styled.div`
 export const NotFound = () => {
   return (
     <NotFoundStyled>
-      <span>НЕТ ТАКОГО ФИЛЬТРА</span>
+      <span>По таким критериям персонаж ненайден :(</span>
     </NotFoundStyled>
   );
 };

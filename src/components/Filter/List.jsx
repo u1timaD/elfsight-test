@@ -4,7 +4,11 @@ import { useSelector } from "react-redux";
 
 const StyledList = styled.ul`
   display: flex;
-  margin-left: 78px;
+  margin-left: 30px;
+
+  @media(max-width: 1100px) {
+    max-height: 200px;
+  }
 `;
 
 const StyledItem = styled.li`
@@ -21,37 +25,9 @@ const StyledFieldset = styled.fieldset`
   height: 150px;
   overflow: auto;
   border: none;
-  
 
-  & label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  & input {
-    display: none;
-  }
-
-  & input + span {
-    position: relative;
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-    background-color: #d9d9d9;
-    border-radius: 50%;
-    margin-right: 15px;
-  }
-
-  & input:checked + span::after {
-    content: "";
-    position: absolute;
-    left: 5px;
-    top: 5px;
-    width: 10px;
-    height: 10px;
-    background-color: #021415;
-    border-radius: 50%;
+  @media(max-width: 800px) {
+    height: 87px;
   }
 `;
 

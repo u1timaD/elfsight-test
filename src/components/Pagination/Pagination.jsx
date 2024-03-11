@@ -5,30 +5,34 @@ import ReactPaginate from "react-paginate";
 import { setCurrentPage } from "../../redux/personSlice";
 
 const PaginationStyled = styled.section`
+  display: flex;
+  justify-content: center;
+
+  & ul {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    gap: 20px;
 
-    & ul {
-      display: flex;
-      align-items: center;
-      gap: 20px;
+    & li {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 700;
+      cursor: pointer;
+      
+      @media (max-width: 800px) {
+        font-size: 18px;
+      }
 
-      & li {
-        color: #FFFFFF;
-        font-size: 24px;
-        font-weight: 700;
-        cursor: pointer;
+      &:hover {
+        color: #bfde42;
+      }
 
-        &:hover {
-          color: #BFDE42;
-        }
-
-        &.selected {
-          color: #42B4CA;
-        } 
+      &.selected {
+        color: #42b4ca;
       }
     }
-`
+  }
+`;
 
 export const Pagination = () => {
   const pages = useSelector((state) => state.person.pages);

@@ -5,6 +5,10 @@ const CardImgWrapperStyled = styled.div`
   width: 300px;
   height: 300px;
   margin-bottom: 25px;
+  
+  @media(max-width: 870px) {
+
+  }
 
   & img {
     border-radius: 10px;

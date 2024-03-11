@@ -11,6 +11,11 @@ const PersonItem = styled.li`
   padding-inline: 42px;
   padding-bottom: 30px;
   background-color: #0c0c0c;
+
+  @media(max-width: 870px) {
+    /* width: 105px; */
+    /* height: 200px; */
+  }
 `;
 
 const CardWrapper = styled.div`
@@ -18,6 +23,8 @@ const CardWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  
 `;
 
 const InfoWrapper = styled.div`
