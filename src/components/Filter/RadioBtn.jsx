@@ -5,6 +5,7 @@ import {
   setFilterGender,
   setFilterStatus,
   setFilterType,
+  setFilterSpecies,
   setResetFilters,
 } from "../../redux/filterSlice";
 
@@ -20,18 +21,17 @@ export const RadioBtn = ({ filterName, index, inputName }) => {
       dispatch(setResetFilters(true));
     }
   }, [resetFilters]);
-  // useEffect(() => {
-  //   dispatch(fetchPersons({ ...allTabs }));
-  //   console.log(allTabs);
-  // }, [allTabs, dispatch]);
 
   const handleClickInput = () => {
-    const inputValue = inputRef.current.value.toLowerCase();
+    const inputValue =
+      inputRef.current.value.toLowerCase() === "all"
+        ? ""
+        : inputRef.current.value.toLowerCase();
+
     const inputName = inputRef.current.name;
     dispatch(setCurrentPage(1));
     if (inputName === "status") {
       dispatch(setFilterStatus(inputValue));
-      
     }
 
     if (inputName === "gender") {
@@ -43,7 +43,7 @@ export const RadioBtn = ({ filterName, index, inputName }) => {
     }
 
     if (inputName === "species") {
-      dispatch(setFilterType(inputValue));
+      dispatch(setFilterSpecies(inputValue));
     }
   };
 

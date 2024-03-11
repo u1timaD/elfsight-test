@@ -18,6 +18,10 @@ const StyledFieldset = styled.fieldset`
   flex-direction: column;
   align-items: start;
   position: relative;
+  height: 150px;
+  overflow: auto;
+  border: none;
+  
 
   & label {
     display: flex;
@@ -64,7 +68,7 @@ export const List = ({ filterItem, index }) => {
           {filterItem.map((filterName, index) => (
             <RadioBtn
               key={index}
-              filterName={filterName}
+              filterName={filterName || 'All'}
               inputName={inputName}
             />
           ))}
