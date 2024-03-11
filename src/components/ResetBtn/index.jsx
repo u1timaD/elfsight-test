@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { resetFilters } from "../../redux/filterSlice";
 import styled from "styled-components";
+import { setCurrentPage } from "../../redux/personSlice";
 
 const ResetBtnStyled = styled.button`
   width: 250px;
@@ -21,6 +22,7 @@ export const ResetBtn = () => {
 
   const handleClickBtn = () => {
     dispatch(resetFilters());
+    dispatch(setCurrentPage(1))
   };
 
   return (

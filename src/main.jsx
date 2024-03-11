@@ -1,14 +1,13 @@
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import store from "./redux/store.js"
+import store from "./redux/store.js";
 import { Provider } from "react-redux";
 
-import styled, { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
 
 #root {
-  
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -23,6 +22,7 @@ const GlobalStyle = createGlobalStyle`
   -moz-osx-font-smoothing: grayscale;
 
 	max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
   text-align: center;
 }
@@ -36,6 +36,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
+  position: relative;
   min-height: 100vh;
   display: grid;
   /* place-content: center; */

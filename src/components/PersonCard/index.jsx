@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { CardImgWrapper } from "../CardImgWrapper";
 
 const PersonItem = styled.li`
   display: flex;
@@ -10,6 +11,11 @@ const PersonItem = styled.li`
   padding-inline: 42px;
   padding-bottom: 30px;
   background-color: #0c0c0c;
+
+  @media (max-width: 870px) {
+    /* width: 105px; */
+    /* height: 200px; */
+  }
 `;
 
 const CardWrapper = styled.div`
@@ -19,38 +25,12 @@ const CardWrapper = styled.div`
   align-items: center;
 `;
 
-const CardImgWrapper = styled.div`
-  position: relative;
-  width: 300px;
-  height: 300px;
-  margin-bottom: 25px;
-
-  & img {
-    border-radius: 10px;
-    width: 100%;
-    height: 100%;
-  }
-`;
-
-const Status = styled.span`
-  position: absolute;
-  display: grid;
-  width: 100px;
-  height: 30px;
-  place-items: center;
-  bottom: calc(30px - 13%);
-  right: calc(100px - 38%);
-  background-color: ${(props) => props.status};
-  border-radius: 30px;
-  font-size: 18px;
-  line-height: 21px;
-`;
-
 const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  min-height: 138px;
 `;
 
 const CardBtn = styled.button`
@@ -64,32 +44,48 @@ const CardBtn = styled.button`
   cursor: pointer;
 `;
 
-const Name = styled.span``;
+const Name = styled.span`
+  /* overflow: hidden; */
+  font-size: 29px;
+`;
 
 const Gender = styled.span`
   font-size: 28px;
   margin-bottom: auto;
+  opacity: 0.5;
 `;
 
-export const PersonCard = ({ id, name, gender, status, species, image }) => {
-  const statusColor = {
-    Alive: "#0E5603",
-    Dead: "#D80101",
-    unknown: "#525252",
+export const PersonCard = ({
+  id,
+  name,
+  gender,
+  status,
+  species,
+  image,
+  type,
+  handleClickDetails,
+}) => {
+  const cardParams = {
+    id,
+    name,
+    gender,
+    status,
+    species,
+    image,
+    type,
   };
 
   return (
     <PersonItem>
       <CardWrapper>
-        <CardImgWrapper>
-          <img src={image} width={300} height={300} />
-          {/* <Status status={statusColor[status]}>{status}</Status> */}
-        </CardImgWrapper>
+        <CardImgWrapper status={status} image={image} />
         <InfoWrapper>
           <Name>{name}</Name>
           <Gender>{gender}</Gender>
         </InfoWrapper>
-        <CardBtn>Details</CardBtn>
+        <CardBtn onClick={() => handleClickDetails(cardParams)}>
+          Details
+        </CardBtn>
       </CardWrapper>
     </PersonItem>
   );
