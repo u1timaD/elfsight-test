@@ -14,8 +14,6 @@ export const fetchPersons = createAsyncThunk(
     const { data } = await axios.get(
       `https://rickandmortyapi.com/api/character/?page=${currentPage}${filterName}${filterStatus}${filterGender}${filterType}${filterSpecies}`
     );
-
-    // return data; // ?на загрузку всех сразу
     return data;
   }
 );
@@ -36,9 +34,9 @@ export const personSlice = createSlice({
     setIsLoading: (state) => {
       state.isLoading = !state.isLoading;
     },
-		setCurrentPage: (state, action) => {
-			state.currentPage = action.payload;
-		}
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder

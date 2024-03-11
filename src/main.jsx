@@ -1,9 +1,9 @@
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import store from "./redux/store.js"
+import store from "./redux/store.js";
 import { Provider } from "react-redux";
 
-import styled, { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
 
@@ -22,6 +22,7 @@ const GlobalStyle = createGlobalStyle`
   -moz-osx-font-smoothing: grayscale;
 
 	max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
   text-align: center;
 }

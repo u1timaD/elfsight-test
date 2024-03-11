@@ -12,7 +12,7 @@ const PersonItem = styled.li`
   padding-bottom: 30px;
   background-color: #0c0c0c;
 
-  @media(max-width: 870px) {
+  @media (max-width: 870px) {
     /* width: 105px; */
     /* height: 200px; */
   }
@@ -23,8 +23,6 @@ const CardWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
-  
 `;
 
 const InfoWrapper = styled.div`
@@ -81,7 +79,6 @@ export const PersonCard = ({
     <PersonItem>
       <CardWrapper>
         <CardImgWrapper status={status} image={image} />
-
         <InfoWrapper>
           <Name>{name}</Name>
           <Gender>{gender}</Gender>

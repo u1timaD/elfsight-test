@@ -6,7 +6,7 @@ const StyledList = styled.ul`
   display: flex;
   margin-left: 30px;
 
-  @media(max-width: 1100px) {
+  @media (max-width: 1100px) {
     max-height: 200px;
   }
 `;
@@ -26,7 +26,7 @@ const StyledFieldset = styled.fieldset`
   overflow: auto;
   border: none;
 
-  @media(max-width: 800px) {
+  @media (max-width: 800px) {
     height: 87px;
   }
 `;
@@ -44,7 +44,7 @@ export const List = ({ filterItem, index }) => {
           {filterItem.map((filterName, index) => (
             <RadioBtn
               key={index}
-              filterName={filterName || 'All'}
+              filterName={filterName || "All"}
               inputName={inputName}
             />
           ))}

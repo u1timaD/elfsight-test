@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ReactPaginate from "react-paginate";
 import { setCurrentPage } from "../../redux/personSlice";
+import ReactPaginate from "react-paginate";
+import styled from "styled-components";
 
-const PaginationStyled = styled.section`
+const PaginationStyled = styled.div`
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 
   & ul {
     display: flex;
@@ -18,7 +18,7 @@ const PaginationStyled = styled.section`
       font-size: 24px;
       font-weight: 700;
       cursor: pointer;
-      
+
       @media (max-width: 800px) {
         font-size: 18px;
       }
@@ -37,7 +37,6 @@ const PaginationStyled = styled.section`
 export const Pagination = () => {
   const pages = useSelector((state) => state.person.pages);
   const currentPage = useSelector((state) => state.person.currentPage);
-  const statusFetch = useSelector((state) => state.person.statusFetch);
   const dispatch = useDispatch();
 
   const clickCount = (evt) => {
@@ -46,18 +45,16 @@ export const Pagination = () => {
 
   return (
     <PaginationStyled>
-      {statusFetch !== "error" && (
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel=">"
-          onPageChange={clickCount}
-          pageRangeDisplayed={3}
-          pageCount={Number(pages)}
-          forcePage={currentPage - 1}
-          previousLabel="<"
-          renderOnZeroPageCount={null}
-        />
-      )}
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel=">"
+        onPageChange={clickCount}
+        pageRangeDisplayed={3}
+        pageCount={Number(pages)}
+        forcePage={currentPage - 1}
+        previousLabel="<"
+        renderOnZeroPageCount={null}
+      />
     </PaginationStyled>
   );
 };

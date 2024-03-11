@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPersons, setCurrentPage } from "../../redux/personSlice";
+import { setCurrentPage } from "../../redux/personSlice";
 import {
   setFilterGender,
   setFilterStatus,
@@ -39,12 +39,11 @@ const RadioInput = styled.input`
     background-color: #021415;
     border-radius: 50%;
   }
-`
+`;
 
 const RadioName = styled.span`
-font-size: 18px;
-
-`
+  font-size: 18px;
+`;
 
 export const RadioBtn = ({ filterName, index, inputName }) => {
   const inputRef = useRef();

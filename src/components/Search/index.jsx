@@ -51,7 +51,6 @@ export const Search = () => {
   const crossRef = useRef(null);
   const dispatch = useDispatch();
   const reset = useSelector((state) => state.filter.reset);
-  const filterName = useSelector((state) => state.filter.filterName);
 
   const updateSearchValue = useCallback(
     debounce((inputSearchValue) => {
@@ -77,7 +76,6 @@ export const Search = () => {
     updateSearchValue(evt.target.value);
   };
 
-  // const []
   return (
     <>
       <StyledSearch>

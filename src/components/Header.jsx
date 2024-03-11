@@ -3,7 +3,6 @@ import logo from "../assets/logo.jpg";
 import styled from "styled-components";
 
 const StyledHeader = styled.header`
-  /* background-color: #011314; */
   background-color: #123354;
   padding: 27px 120px;
   width: 100%;
@@ -14,7 +13,7 @@ const HeaderContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
 
-  @media(max-width: 830px) {
+  @media (max-width: 830px) {
     flex-direction: column;
     align-items: center;
     gap: 20px;

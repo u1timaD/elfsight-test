@@ -1,15 +1,9 @@
-import { Filter } from "./Filter";
-import axios from "axios";
-import { PersonCard } from "./PersonCard";
-import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setFilterPersons, findFilters } from "../redux/filterSlice";
-import {
-  fetchPersons,
-  setCurrentPage,
-  setIsLoading,
-} from "../redux/personSlice";
+import { fetchPersons } from "../redux/personSlice";
+import { Filter } from "./Filter";
+import { PersonCard } from "./PersonCard";
+import styled from "styled-components";
 import { NotFound } from "./NoFound";
 import { ResetBtn } from "./ResetBtn";
 import { Pagination } from "./Pagination/Pagination";
@@ -74,7 +68,7 @@ const Shadow = styled.div`
 
 const CardContainerStyled = styled.div`
   padding-inline: 40px;
-`
+`;
 
 export const Main = () => {
   const dispatch = useDispatch();
@@ -88,7 +82,6 @@ export const Main = () => {
   const filterType = useSelector((state) => state.filter.filterType);
   const filterSpecies = useSelector((state) => state.filter.filterSpecies);
   const filterName = useSelector((state) => state.filter.filterName);
-
 
   const filtersList = useSelector((state) => state.filter.filtersList);
 
@@ -127,39 +120,37 @@ export const Main = () => {
   // }, [statusFetch]);
 
   // ? делаем ряд запросов, чтобы загрузить все карточки сразу
-  useEffect(() => {
-    const getAllCharacters = async () => {
-      let allCharacters = [];
-      let page = 1;
-      let response;
+  // useEffect(() => {
+  //   const getAllCharacters = async () => {
+  //     let allCharacters = [];
+  //     let page = 1;
+  //     let response;
 
-      do {
-        response = await axios.get(`https://rickandmortyapi.com/api/character/?page=${page}`);
-        const characters = response.data.results;
-        allCharacters = [...allCharacters, ...characters];
-        page++;
-      } while (response.data.info.next !== null);
+  //     do {
+  //       response = await axios.get(`https://rickandmortyapi.com/api/character/?page=${page}`);
+  //       const characters = response.data.results;
+  //       allCharacters = [...allCharacters, ...characters];
+  //       page++;
+  //     } while (response.data.info.next !== null);
 
-      return allCharacters;
-    };
+  //     return allCharacters;
+  //   };
 
-    const fetchData = async () => {
-      try {
-        const allCharacters = await getAllCharacters();
-        dispatch(setFilterPersons(allCharacters));
-        dispatch(findFilters());
-        // dispatch(setIsLoading())
-        console.log(allCharacters)
-      } catch (error) {
-        console.error("Ошибка при получении данных:", error);
-      }
-    };
+  //   const fetchData = async () => {
+  //     try {
+  //       const allCharacters = await getAllCharacters();
+  //       dispatch(setFilterPersons(allCharacters));
+  //       dispatch(findFilters());
+  //       // dispatch(setIsLoading())
+  //       console.log(allCharacters)
+  //     } catch (error) {
+  //       console.error("Ошибка при получении данных:", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
-  console.log(filtersList)
-  
   const [popup, setPopup] = useState(false);
   const [popupParams, setPopupParams] = useState({});
 
@@ -177,35 +168,37 @@ export const Main = () => {
   return (
     <MainStyled>
       {popup && <Shadow></Shadow>}
-      <Pagination />
+
       <ManipulateSection>
         <div>
           <Filter />
+
           <ResetBtn />
+          {statusFetch !== "error" && <Pagination />}
         </div>
       </ManipulateSection>
 
       <PersonSection>
         <CardContainerStyled>
-        {popup && (
-          <PopupStyled>
-            <Popup popupClose={popupClose} popupParams={popupParams} />
-          </PopupStyled>
-        )}
-        {statusFetch === "error" ? (
-          <NotFound />
-        ) : (
-          <PersonList>
-            {statusFetch === "success" &&
-              personData.map((item, i) => (
-                <PersonCard
-                  key={i}
-                  {...item}
-                  handleClickDetails={handleClickDetails}
-                />
-              ))}
-          </PersonList>
-        )}
+          {popup && (
+            <PopupStyled>
+              <Popup popupClose={popupClose} popupParams={popupParams} />
+            </PopupStyled>
+          )}
+          {statusFetch === "error" ? (
+            <NotFound />
+          ) : (
+            <PersonList>
+              {statusFetch === "success" &&
+                personData.map((item, i) => (
+                  <PersonCard
+                    key={i}
+                    {...item}
+                    handleClickDetails={handleClickDetails}
+                  />
+                ))}
+            </PersonList>
+          )}
         </CardContainerStyled>
       </PersonSection>
     </MainStyled>

@@ -1,8 +1,6 @@
+import { useSelector } from "react-redux";
+import { useMemo } from "react";
 import styled from "styled-components";
-import { RadioBtn } from "./RadioBtn";
-import { useDispatch, useSelector } from "react-redux";
-import { findFilters } from "../../redux/filterSlice";
-import { useEffect } from "react";
 import { List } from "./List";
 
 const StyledFilter = styled.div`
@@ -23,14 +21,19 @@ const StyledFilter = styled.div`
 export const Filter = () => {
   const filtersList = useSelector((state) => state.filter.filtersList);
 
+  const memoizedFilterLists = useMemo(() => (
+    filtersList.map((filterItem, key) => (
+      <List key={key} filterItem={filterItem} index={key} />
+    ))
+  ), [filtersList]);
+
   return (
     <StyledFilter>
       <h2>Filter by:</h2>
       <div>
-        {filtersList.map((filterItem, key) => (
-          <List key={key} filterItem={filterItem} index={key} />
-        ))}
+        {memoizedFilterLists}
       </div>
     </StyledFilter>
   );
 };
+
