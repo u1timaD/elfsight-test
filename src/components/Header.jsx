@@ -3,9 +3,14 @@ import logo from "../assets/logo.jpg";
 import styled from "styled-components";
 
 const StyledHeader = styled.header`
-  background-color: #123354;
+  background-color: #07131f;
   padding: 27px 120px;
   width: 100%;
+  margin-bottom: 20px;
+
+  @media (max-width: 700px) {
+    padding-inline: 10px;
+  }
 `;
 
 const HeaderContainer = styled.div`

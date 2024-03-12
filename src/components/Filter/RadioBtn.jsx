@@ -43,6 +43,13 @@ const RadioInput = styled.input`
 
 const RadioName = styled.span`
   font-size: 18px;
+  text-align: start;
+
+  @media (max-width: 1100px) {
+    font-size: 16px;
+  }
+
+  
 `;
 
 export const RadioBtn = ({ filterName, index, inputName }) => {
