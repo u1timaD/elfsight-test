@@ -5,9 +5,13 @@ const CardImgWrapperStyled = styled.div`
   width: 300px;
   height: 300px;
   margin-bottom: 25px;
-  
-  @media(max-width: 870px) {
 
+  @media (max-width: 870px) {
+    width: 139px;
+    height: 134px;
+    grid-row: 1/3;
+    grid-column: 1/2;
+    margin-bottom: 0px;
   }
 
   & img {
@@ -29,6 +33,15 @@ const StatusStyled = styled.span`
   border-radius: 30px;
   font-size: 18px;
   line-height: 21px;
+
+  @media (max-width: 870px) {
+    width: 64px;
+    height: 15px;
+    bottom: calc(30px - 27%);
+    right: calc(100px - 48%);
+    font-size: 11px;
+    line-height: 10px;
+  }
 `;
 
 export const CardImgWrapper = ({ image, status }) => {

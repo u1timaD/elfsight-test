@@ -37,6 +37,10 @@ const ManipulateSection = styled.section`
   & h2 {
     color: #42b4ca;
     font-size: 24px;
+
+    @media (max-width: 1100px) {
+      font-size: 18px;
+  }
   }
 `;
 
@@ -53,6 +57,12 @@ const PopupStyled = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   border: 1px solid rgba(66, 180, 202, 0.5);
+
+  @media (max-width: 870px) {
+    width: 330px;
+    height: 445px;
+    padding-top: 40px;
+  }
 `;
 
 const Shadow = styled.div`
@@ -68,6 +78,9 @@ const Shadow = styled.div`
 
 const CardContainerStyled = styled.div`
   padding-inline: 40px;
+  @media (max-width: 870px) {
+    padding-inline: 10px;
+  }
 `;
 
 export const Main = () => {
